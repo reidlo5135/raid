@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-package_name = 'raid_ai_learner'
+package_name = 'raid_csv_converter'
 
 setup(
     name=package_name,
