@@ -1,0 +1,4 @@
+/raid_csv_server:
+  ros__parameters:
+    csv:
+      path: "/"
