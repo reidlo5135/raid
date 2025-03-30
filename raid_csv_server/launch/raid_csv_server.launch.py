@@ -17,7 +17,7 @@ def generate_launch_description() -> LaunchDescription:
         name=package_name,
         output="screen",
         parameters=[parameter]
-    );
+    )
 
     ld.add_action(map_handler)
 

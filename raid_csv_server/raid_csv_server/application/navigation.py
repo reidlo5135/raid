@@ -8,6 +8,7 @@ from raid_csv_server.domain.navigation import Navigation as Domain
 from raid_csv_server.application.csv import CSV
 from typing import Any
 
+CSV_NAME: str = "navigation.csv"
 
 class Navigation:
 
@@ -29,28 +30,32 @@ class Navigation:
         )
 
     def path_subsription_cb(self, path: Path) -> None:
-        time: str = ""
+        try:
+            time: str = ""
+            time_sec_nanosec: tuple[Any, Any] = self.node_.get_clock().now().seconds_nanoseconds()
 
-        if path.header.stamp.sec == 0:
-            time = f"{self.node_.get_clock().now().seconds_nanoseconds()[0]}.{self.node_.get_clock().now().seconds_nanoseconds()[1]}"
-        else:
-            time = f"{path.header.stamp.sec}.{path.header.stamp.nanosec}"
+            if path.header.stamp.sec == 0:
+                time = f"{time_sec_nanosec[0]}.{time_sec_nanosec[1]}"
+            else:
+                time = f"{path.header.stamp.sec}.{path.header.stamp.nanosec}"
 
-        poses: list[float] = []
+            poses: list[float] = []
 
-        if path.poses.__len__() > 0:
-            for pose in path.poses:
-                poses.append(pose.pose.position.x)
-                poses.append(pose.pose.position.y)
-                poses.append(pose.pose.position.z)
-                poses.append(pose.pose.orientation.x)
-                poses.append(pose.pose.orientation.y)
-                poses.append(pose.pose.orientation.z)
-                poses.append(pose.pose.orientation.w)
-        else:
-            pass
+            if path.poses.__len__() > 0:
+                for pose in path.poses:
+                    poses.append(pose.pose.position.x)
+                    poses.append(pose.pose.position.y)
+                    poses.append(pose.pose.position.z)
+                    poses.append(pose.pose.orientation.x)
+                    poses.append(pose.pose.orientation.y)
+                    poses.append(pose.pose.orientation.z)
+                    poses.append(pose.pose.orientation.w)
+            else:
+                pass
 
-        self.csv_.write(csv_name="navigation.csv", data=[time, poses])
+            self.csv_.write(csv_name=CSV_NAME, data=[time, poses])
+        except OSError as ose:
+            self.logger_.error(f"{ose}")
 
 
 __all__: list[str] = ["Navigation"]

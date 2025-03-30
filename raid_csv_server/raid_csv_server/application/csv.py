@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 from typing import Any
+from ament_index_python.packages import get_package_share_directory
 
 DIRECTORY: str = "raid_csv_server/resource"
 
@@ -18,8 +19,13 @@ class CSV:
         self.header_columns_ = header_columns
 
     def write(self, csv_name: str, data: Any) -> None:
-        file_path = f"{DIRECTORY}/{csv_name}"
-        file_exists = os.path.exists(file_path)
+        shared_path: str = get_package_share_directory(f"{DIRECTORY.split('/')[0]}")
+        save_directory: str = os.path.join(f"{shared_path}/{DIRECTORY.split('/')[1]}", "csv")
+
+        os.makedirs(save_directory, exist_ok=True)
+
+        file_path: str = os.path.join(save_directory, csv_name)
+        file_exists: bool = os.path.exists(file_path)
 
         data_frame: pd.DataFrame = pd.DataFrame([data], columns=self.header_columns)
 
