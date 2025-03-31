@@ -1,0 +1,24 @@
+/raid_data_controller:
+  ros__parameters:
+    sensor:
+      topic: "/raid/data/sensor"
+      rate: 500
+      lidar:
+        topic: "/scan"
+      imu:
+        topic: "/imu"
+      gps:
+        topic: "/gps/fix"
+      battery:
+        topic: "/battery/state"
+      temperature:
+        topic: "/temperature"
+    navigation:
+      topic: "/raid/data/navigation"
+      rate: 500
+      velocity:
+        topic: "/cmd_vel"
+      slam_pose:
+        topic: "/robot_pose"
+      plan:
+        topic: "/plan"

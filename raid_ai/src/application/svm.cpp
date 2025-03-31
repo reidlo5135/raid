@@ -2,15 +2,8 @@
 
 using namespace raid::ai;
 
-SVMLearner::SVMLearner()
-{
-
-}
-
-SVMLearner::~SVMLearner()
-{
-
-}
+SVMLearner::SVMLearner() = default;
+SVMLearner::~SVMLearner() = default;
 
 std::vector<float>
 SVMLearner::parse_path_string(const std::string &path_str)

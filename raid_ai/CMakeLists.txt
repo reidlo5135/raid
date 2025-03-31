@@ -58,8 +58,8 @@ install(TARGETS
 )
 
 install(DIRECTORY
-	    launch
-	    DESTINATION share/${PROJECT_NAME}
+	launch
+	DESTINATION share/${PROJECT_NAME}
 )
 install(DIRECTORY
         config
