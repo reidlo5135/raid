@@ -23,8 +23,10 @@ namespace raid
             explicit SVMLearner();
             virtual ~SVMLearner();
             bool load_csv(const std::string &csv_name, cv::Mat &data, cv::Mat &labels);
+
         public:
             using SharedPtr = std::shared_ptr<SVMLearner>;
+
         };
     }
 }
